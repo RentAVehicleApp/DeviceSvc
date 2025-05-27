@@ -18,4 +18,5 @@ import lombok.*;
 public class VehicleConfig {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String nameOfConfig;
 }

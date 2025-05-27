@@ -13,7 +13,7 @@ public interface VehicleService {
 
     List<VehicleDto> findVehicleByParams(FindVehicleByParamDto findVehicleByParamDto);
 
-    VehicleDto updateVehicle(VehicleDto vehicleDto);
+    VehicleDto updateVehicle(long id, VehicleDto vehicleDto);
 
     void removeVehicle(long id);
 }

@@ -12,7 +12,7 @@ public interface DeviceService {
 
     List<DeviceDto> findDevicesByParams(FindDeviceByParamDto findDeviceByParamDto);
 
-    DeviceDto updateDevice(DeviceDto deviceDto);
+    DeviceDto updateDevice(long id, DeviceDto deviceDto);
 
     void removeDevice(long id);
 }

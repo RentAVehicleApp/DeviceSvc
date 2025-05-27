@@ -30,8 +30,8 @@ public class DeviceController {
     }
 
     @PutMapping("/update/{id}")
-    public DeviceDto updateDevice (@RequestBody DeviceDto deviceDto) {
-        return deviceService.updateDevice (deviceDto);
+    public DeviceDto updateDevice (@PathVariable long id, @RequestBody DeviceDto deviceDto) {
+        return deviceService.updateDevice (id, deviceDto);
     }
 
     @DeleteMapping("/remove/{id}")

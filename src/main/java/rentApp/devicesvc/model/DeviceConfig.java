@@ -18,4 +18,6 @@ import lombok.*;
 public class DeviceConfig {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    String nameOfConfig;
 }

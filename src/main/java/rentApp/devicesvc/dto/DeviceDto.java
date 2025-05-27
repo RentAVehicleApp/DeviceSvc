@@ -13,7 +13,7 @@ import rentApp.devicesvc.model.DeviceModel;
 @AllArgsConstructor
 public class DeviceDto {
     private String serialNumber;
-    private DeviceConfig deviceConfig;
-    private DeviceModel deviceModel;
+    private DeviceConfigDto deviceConfig;
+    private DeviceModelDto deviceModel;
     private String nodes;
 }

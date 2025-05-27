@@ -14,8 +14,8 @@ import java.util.Locale;
 @AllArgsConstructor
 public class VehicleDto {
     String registrationNumber;
-    VehicleConfig vehicleConfig;
-    VehicleModel vehicleModel;
+    VehicleConfigDto vehicleConfig;
+    VehicleModelDto vehicleModel;
     DeviceDto device;
     boolean isAvailable;
     Locale locale;
