@@ -25,7 +25,7 @@ public class DeviceServiceImpl implements DeviceService {
     final DeviceRepository deviceRepository;
     final DeviceConfigRepository deviceConfigRepository;
     final DeviceModelRepository deviceModelRepository;
-    ModelMapper modelMapper;
+    final ModelMapper modelMapper;
 
     @Transactional
     @Override

@@ -14,7 +14,7 @@ import java.util.Locale;
 @ToString
 @Builder
 public class Vehicle {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
     String registrationNumber;

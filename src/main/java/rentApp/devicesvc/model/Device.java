@@ -1,9 +1,6 @@
 package rentApp.devicesvc.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,7 +13,7 @@ import lombok.*;
 @Builder
 
 public class Device {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String serialNumber;
