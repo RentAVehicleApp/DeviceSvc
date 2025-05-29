@@ -1,8 +1,6 @@
 package rentApp.devicesvc.dto;
 
 import lombok.*;
-import rentApp.devicesvc.model.Device;
-import rentApp.devicesvc.model.VehicleConfig;
 import rentApp.devicesvc.model.VehicleModel;
 
 import java.util.Locale;
@@ -12,11 +10,10 @@ import java.util.Locale;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindVehicleByParamDto {
+public class ListVehiclesRequest {
     String registrationNumber;
-    VehicleConfig vehicleConfig;
     VehicleModel vehicleModel;
-    FindDeviceByParamDto device;
+    ListDevicesRequest device;
     boolean isAvailable;
     Locale locale;
     String nodes;

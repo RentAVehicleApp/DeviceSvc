@@ -1,7 +1,7 @@
 package rentApp.devicesvc.service;
 
 
-import rentApp.devicesvc.dto.FindVehicleByParamDto;
+import rentApp.devicesvc.dto.ListVehiclesRequest;
 import rentApp.devicesvc.dto.VehicleDto;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public interface VehicleService {
 
     VehicleDto findVehicleById(long id);
 
-    List<VehicleDto> findVehicleByParams(FindVehicleByParamDto findVehicleByParamDto);
+    List<VehicleDto> findVehicleByParams(ListVehiclesRequest listVehiclesRequest);
 
     VehicleDto updateVehicle(long id, VehicleDto vehicleDto);
 

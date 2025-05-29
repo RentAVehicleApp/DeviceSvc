@@ -5,17 +5,14 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rentApp.devicesvc.dao.DeviceConfigRepository;
-import rentApp.devicesvc.dao.DeviceModelRepository;
 import rentApp.devicesvc.dao.DeviceRepository;
 import rentApp.devicesvc.dto.DeviceConfigDto;
 import rentApp.devicesvc.dto.DeviceDto;
-import rentApp.devicesvc.dto.DeviceModelDto;
-import rentApp.devicesvc.dto.FindDeviceByParamDto;
+import rentApp.devicesvc.dto.ListDevicesRequest;
 import rentApp.devicesvc.exception.DuplicateDeviceException;
 import rentApp.devicesvc.exception.EntityNotFoundException;
 import rentApp.devicesvc.model.Device;
 import rentApp.devicesvc.model.DeviceConfig;
-import rentApp.devicesvc.model.DeviceModel;
 
 import java.util.List;
 
@@ -24,7 +21,6 @@ import java.util.List;
 public class DeviceServiceImpl implements DeviceService {
     final DeviceRepository deviceRepository;
     final DeviceConfigRepository deviceConfigRepository;
-    final DeviceModelRepository deviceModelRepository;
     final ModelMapper modelMapper;
 
     @Transactional
@@ -37,11 +33,10 @@ public class DeviceServiceImpl implements DeviceService {
 
         DeviceConfig deviceConfig = getDeviceConfigIfExistOrCreateNew(deviceDto.getDeviceConfig());
 
-        DeviceModel deviceModel = getDeviceModelIfExistOrCreateNew(deviceDto.getDeviceModel());
 
         Device device = Device.builder()
                 .deviceConfig(deviceConfig)
-                .deviceModel(deviceModel)
+                .deviceModel(deviceDto.getDeviceModel())
                 .nodes(deviceDto.getNodes())
                 .serialNumber(deviceDto.getSerialNumber())
                 .build();
@@ -60,17 +55,6 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceConfig;
     }
 
-    private DeviceModel getDeviceModelIfExistOrCreateNew(DeviceModelDto deviceModelDto) {
-        DeviceModel deviceModel = deviceModelRepository
-                .findByName(deviceModelDto.getName())
-                .orElseGet(() ->
-                        deviceModelRepository.save(
-                                modelMapper.map(deviceModelDto, DeviceModel.class)
-                        )
-                );
-        return deviceModel;
-    }
-
     @Transactional(readOnly = true)
     @Override
     public DeviceDto findDeviceById(long id) {
@@ -79,8 +63,9 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public List<DeviceDto> findDevicesByParams(FindDeviceByParamDto findDeviceByParamDto) {
-//        List<Device> devices 
+    public List<DeviceDto> findDevicesByParams(ListDevicesRequest listDevicesRequest) {
+//        List<Device> devices
+        //TODO Spring Data JPA + JpaSpecificationExecutor
         return List.of();
     }
 
@@ -94,7 +79,7 @@ public class DeviceServiceImpl implements DeviceService {
         }
         
         if (deviceDto.getDeviceModel() != null) {
-            device.setDeviceModel(getDeviceModelIfExistOrCreateNew(deviceDto.getDeviceModel()));
+            device.setDeviceModel(deviceDto.getDeviceModel());
         }
 
         if (deviceDto.getNodes() != null) {

@@ -3,38 +3,38 @@ package rentApp.devicesvc.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import rentApp.devicesvc.dto.DeviceDto;
-import rentApp.devicesvc.dto.FindDeviceByParamDto;
+import rentApp.devicesvc.dto.ListDevicesRequest;
 import rentApp.devicesvc.service.DeviceService;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/device")
+@RequestMapping("/v1/devices")
 public class DeviceController {
     final DeviceService deviceService;
 
-    @PostMapping("/create")
+    @PostMapping
     public DeviceDto createDevice (@RequestBody DeviceDto deviceDto) {
         return deviceService.createDevice(deviceDto);
     }
 
-    @GetMapping("/findById/{id}")
+    @GetMapping("/{id}")
     public DeviceDto findDeviceById (@PathVariable long id) {
         return deviceService.findDeviceById (id);
     }
 
-    @GetMapping("/findByParam")
-    public List<DeviceDto> findDevicesByParams (@ModelAttribute FindDeviceByParamDto findDeviceByParamDto) {
-        return deviceService.findDevicesByParams(findDeviceByParamDto);
+    @GetMapping("/list")
+    public List<DeviceDto> findDevicesByParams (@ModelAttribute ListDevicesRequest listDevicesRequest) {
+        return deviceService.findDevicesByParams(listDevicesRequest);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public DeviceDto updateDevice (@PathVariable long id, @RequestBody DeviceDto deviceDto) {
         return deviceService.updateDevice (id, deviceDto);
     }
 
-    @DeleteMapping("/remove/{id}")
+    @DeleteMapping("/{id}")
     public void removeDevice (@PathVariable long id) {
         deviceService.removeDevice (id);
     }

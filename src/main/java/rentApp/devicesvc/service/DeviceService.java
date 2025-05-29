@@ -1,7 +1,7 @@
 package rentApp.devicesvc.service;
 
 import rentApp.devicesvc.dto.DeviceDto;
-import rentApp.devicesvc.dto.FindDeviceByParamDto;
+import rentApp.devicesvc.dto.ListDevicesRequest;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface DeviceService {
 
     DeviceDto findDeviceById(long id);
 
-    List<DeviceDto> findDevicesByParams(FindDeviceByParamDto findDeviceByParamDto);
+    List<DeviceDto> findDevicesByParams(ListDevicesRequest listDevicesRequest);
 
     DeviceDto updateDevice(long id, DeviceDto deviceDto);
 

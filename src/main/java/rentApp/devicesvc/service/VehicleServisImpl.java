@@ -4,18 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rentApp.devicesvc.dao.VehicleConfigRepository;
-import rentApp.devicesvc.dao.VehicleModelRepository;
 import rentApp.devicesvc.dao.VehicleRepository;
-import rentApp.devicesvc.dto.FindVehicleByParamDto;
-import rentApp.devicesvc.dto.VehicleConfigDto;
+import rentApp.devicesvc.dto.ListVehiclesRequest;
 import rentApp.devicesvc.dto.VehicleDto;
-import rentApp.devicesvc.dto.VehicleModelDto;
 import rentApp.devicesvc.exception.DuplicateVehicleException;
 import rentApp.devicesvc.exception.EntityNotFoundException;
 import rentApp.devicesvc.model.Vehicle;
-import rentApp.devicesvc.model.VehicleConfig;
-import rentApp.devicesvc.model.VehicleModel;
 
 import java.util.List;
 
@@ -24,49 +18,24 @@ import java.util.List;
 public class VehicleServisImpl implements VehicleService{
     final VehicleRepository vehicleRepository;
     final ModelMapper modelMapper;
-    final VehicleConfigRepository vehicleConfigRepository;
-    final VehicleModelRepository vehicleModelRepository;
 
     @Transactional
     @Override
     public VehicleDto createVehicle(VehicleDto vehicleDto) {
 
+        //todo Validation - hibernate validation framework
         if (vehicleRepository.existsByRegistrationNumber(vehicleDto.getRegistrationNumber())) {
             throw new DuplicateVehicleException("Vehicle with this serial number already exists");
         }
 
-        VehicleConfig vehicleConfig = getVehicleConfigIfExistOrCreateNew(vehicleDto.getVehicleConfig());
-
-        VehicleModel vehicleModel = getVehicleModelIfExistOrCreateNew(vehicleDto.getVehicleModel());
-
         Vehicle vehicle = Vehicle.builder()
-                .vehicleConfig(vehicleConfig)
-                .vehicleModel(vehicleModel)
+                .vehicleModel(vehicleDto.getVehicleModel())
                 .nodes(vehicleDto.getNodes())
                 .registrationNumber(vehicleDto.getRegistrationNumber())
+//                .device(vehicleDto.getDevice())       //todo setDevice
                 .build();
 
         return modelMapper.map(vehicleRepository.save(vehicle), VehicleDto.class);
-    }
-
-    private VehicleModel getVehicleModelIfExistOrCreateNew(VehicleModelDto vehicleModelDto) {
-        return vehicleModelRepository
-                .findByName(vehicleModelDto.getName())
-                .orElseGet(() ->
-                        vehicleModelRepository.save(
-                                modelMapper.map(vehicleModelDto, VehicleModel.class)
-                        )
-                );
-    }
-
-    private VehicleConfig getVehicleConfigIfExistOrCreateNew(VehicleConfigDto vehicleConfigDto) {
-        return vehicleConfigRepository
-                .findByNameOfConfig(vehicleConfigDto.getNameOfConfig())
-                .orElseGet(() ->
-                        vehicleConfigRepository.save(
-                                modelMapper.map(vehicleConfigDto, VehicleConfig.class)
-                        )
-                );
     }
 
     @Override
@@ -76,7 +45,7 @@ public class VehicleServisImpl implements VehicleService{
     }
 
     @Override
-    public List<VehicleDto> findVehicleByParams(FindVehicleByParamDto findVehicleByParamDto) {
+    public List<VehicleDto> findVehicleByParams(ListVehiclesRequest listVehiclesRequest) {
         return List.of();
     }
 
@@ -89,15 +58,16 @@ public class VehicleServisImpl implements VehicleService{
         }
 
         if (vehicleDto.getVehicleModel() != null) {
-            vehicle.setVehicleModel(getVehicleModelIfExistOrCreateNew(vehicleDto.getVehicleModel()));
+            vehicle.setVehicleModel(vehicleDto.getVehicleModel());
         }
 
         if (vehicleDto.getNodes() != null) {
             vehicle.setNodes(vehicleDto.getNodes());
         }
 
-        if (vehicleDto.getVehicleConfig() != null) {
-            vehicle.setVehicleConfig(getVehicleConfigIfExistOrCreateNew(vehicleDto.getVehicleConfig()));
+        if (vehicleDto.getDevice() != null) {
+            //todo setDevice
+//            vehicle.setVehicleConfig(getVehicleConfigIfExistOrCreateNew(vehicleDto.getVehicleConfig()));
         }
 
         vehicleRepository.save(vehicle);

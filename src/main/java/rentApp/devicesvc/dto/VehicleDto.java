@@ -1,8 +1,6 @@
 package rentApp.devicesvc.dto;
 
 import lombok.*;
-import rentApp.devicesvc.model.Device;
-import rentApp.devicesvc.model.VehicleConfig;
 import rentApp.devicesvc.model.VehicleModel;
 
 import java.util.Locale;
@@ -13,9 +11,9 @@ import java.util.Locale;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VehicleDto {
+    //TODO check not null, format reg number, not exist - для этого создать свой кастомный валидатор Unic и переношу туда логику
     String registrationNumber;
-    VehicleConfigDto vehicleConfig;
-    VehicleModelDto vehicleModel;
+    VehicleModel vehicleModel;
     DeviceDto device;
     boolean isAvailable;
     Locale locale;

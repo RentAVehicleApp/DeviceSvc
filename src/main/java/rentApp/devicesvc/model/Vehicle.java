@@ -3,6 +3,7 @@ package rentApp.devicesvc.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.awt.*;
 import java.util.Locale;
 
 @Entity
@@ -15,23 +16,22 @@ import java.util.Locale;
 @Builder
 public class Vehicle {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
-    String registrationNumber;
+    private String registrationNumber;
 
     @OneToOne(fetch = FetchType.EAGER)
-    Device device;
+    private Device device;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    VehicleConfig vehicleConfig;
+    @Column(unique = true)
+    private VehicleModel vehicleModel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    VehicleModel vehicleModel;
+    private boolean isAvailable;
 
-    boolean isAvailable;
+    @Column (columnDefinition = "geometry(Point,4326)")
+    private Point location;
 
-    Locale locale;
-
-    String nodes;
+    @Column (columnDefinition = "TEXT")
+    private String nodes;
 
 }

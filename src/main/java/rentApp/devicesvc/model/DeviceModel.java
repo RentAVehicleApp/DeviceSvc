@@ -6,20 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-@Getter
-@Setter
-@ToString
-@Builder
-public class DeviceModel {
-    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    private String name;
-
-    private String serialNumber;
-
+public enum DeviceModel {
+    MODEL1, MODEL2, MODEL3;
 }

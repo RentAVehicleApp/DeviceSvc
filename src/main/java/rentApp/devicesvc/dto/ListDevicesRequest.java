@@ -2,7 +2,6 @@ package rentApp.devicesvc.dto;
 
 
 import lombok.*;
-import rentApp.devicesvc.model.DeviceConfig;
 import rentApp.devicesvc.model.DeviceModel;
 
 @Getter
@@ -10,10 +9,10 @@ import rentApp.devicesvc.model.DeviceModel;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FindDeviceByParamDto {
+public class ListDevicesRequest {
 
     private String serialNumber;
-    private DeviceConfig deviceConfig;
+    private DeviceConfigDto deviceConfig;
     private DeviceModel deviceModel;
     private boolean isConnected;
     private String nodes;

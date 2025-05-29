@@ -14,6 +14,6 @@ import rentApp.devicesvc.model.DeviceModel;
 public class DeviceDto {
     private String serialNumber;
     private DeviceConfigDto deviceConfig;
-    private DeviceModelDto deviceModel;
+    private DeviceModel deviceModel;
     private String nodes;
 }
