@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +17,7 @@ import lombok.*;
 @ToString
 @Builder
 
-public class DeviceConfig {
+public class DeviceConfig implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

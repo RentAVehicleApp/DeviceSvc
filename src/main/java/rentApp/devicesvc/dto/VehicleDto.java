@@ -12,10 +12,10 @@ import java.util.Locale;
 @AllArgsConstructor
 public class VehicleDto {
     //TODO check not null, format reg number, not exist - для этого создать свой кастомный валидатор Unic и переношу туда логику
-    String registrationNumber;
-    VehicleModel vehicleModel;
-    DeviceDto device;
-    boolean isAvailable;
-    Locale locale;
-    String nodes;
+    private String registrationNumber;
+    private VehicleModel vehicleModel;
+    private long deviceId;
+    private boolean isAvailable;
+    private Locale locale;
+    private String nodes;
 }

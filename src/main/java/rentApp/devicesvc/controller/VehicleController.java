@@ -19,7 +19,7 @@ public class VehicleController {
         return vehicleService.createVehicle (vehicleDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public VehicleDto findVehicleById (@PathVariable long id) {
         return vehicleService.findVehicleById (id);
     }
@@ -29,12 +29,12 @@ public class VehicleController {
         return vehicleService.findVehicleByParams (listVehiclesRequest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public VehicleDto updateVehicle (@PathVariable long id, @RequestBody VehicleDto vehicleDto) {
         return vehicleService.updateVehicle (id, vehicleDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void removeVehicle (@PathVariable long id) {
         vehicleService.removeVehicle (id);
     }

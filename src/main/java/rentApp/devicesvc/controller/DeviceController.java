@@ -19,7 +19,7 @@ public class DeviceController {
         return deviceService.createDevice(deviceDto);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public DeviceDto findDeviceById (@PathVariable long id) {
         return deviceService.findDeviceById (id);
     }
@@ -29,12 +29,12 @@ public class DeviceController {
         return deviceService.findDevicesByParams(listDevicesRequest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public DeviceDto updateDevice (@PathVariable long id, @RequestBody DeviceDto deviceDto) {
         return deviceService.updateDevice (id, deviceDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void removeDevice (@PathVariable long id) {
         deviceService.removeDevice (id);
     }

@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DeviceServiceImpl implements DeviceService {
     final DeviceRepository deviceRepository;
-    final DeviceConfigRepository deviceConfigRepository;
+    final DeviceConfigService deviceConfigService;
     final ModelMapper modelMapper;
 
     @Transactional
@@ -31,28 +31,17 @@ public class DeviceServiceImpl implements DeviceService {
             throw new DuplicateDeviceException("Device with this serial number already exists");
         }
 
-        DeviceConfig deviceConfig = getDeviceConfigIfExistOrCreateNew(deviceDto.getDeviceConfig());
-
 
         Device device = Device.builder()
-                .deviceConfig(deviceConfig)
+                .deviceConfig(modelMapper.map(
+                        deviceConfigService.findDeviceConfigById(deviceDto.getDeviceConfigId())
+                                , DeviceConfig.class))
                 .deviceModel(deviceDto.getDeviceModel())
                 .nodes(deviceDto.getNodes())
                 .serialNumber(deviceDto.getSerialNumber())
                 .build();
 
         return modelMapper.map(deviceRepository.save(device), DeviceDto.class);
-    }
-
-    private DeviceConfig getDeviceConfigIfExistOrCreateNew(DeviceConfigDto deviceConfigDto) {
-        DeviceConfig deviceConfig = deviceConfigRepository
-                .findByNameOfConfig(deviceConfigDto.getNameOfConfig())
-                .orElseGet(() ->
-                        deviceConfigRepository.save(
-                                modelMapper.map(deviceConfigDto, DeviceConfig.class)
-                        )
-                );
-        return deviceConfig;
     }
 
     @Transactional(readOnly = true)
@@ -86,8 +75,12 @@ public class DeviceServiceImpl implements DeviceService {
             device.setNodes(deviceDto.getNodes());
         }
 
-        if (deviceDto.getDeviceConfig() != null) {
-            device.setDeviceConfig(getDeviceConfigIfExistOrCreateNew(deviceDto.getDeviceConfig()));
+        if (deviceDto.getDeviceConfigId() != 0) {
+            device.setDeviceConfig(modelMapper.map
+                    (deviceConfigService.findDeviceConfigById(deviceDto.getDeviceConfigId() //todo is t ok modalmapper here?
+                    ), DeviceConfig.class)
+            );
+
         }
 
         deviceRepository.save(device);

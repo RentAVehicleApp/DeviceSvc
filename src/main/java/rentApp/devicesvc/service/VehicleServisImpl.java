@@ -9,6 +9,7 @@ import rentApp.devicesvc.dto.ListVehiclesRequest;
 import rentApp.devicesvc.dto.VehicleDto;
 import rentApp.devicesvc.exception.DuplicateVehicleException;
 import rentApp.devicesvc.exception.EntityNotFoundException;
+import rentApp.devicesvc.model.Device;
 import rentApp.devicesvc.model.Vehicle;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VehicleServisImpl implements VehicleService{
     final VehicleRepository vehicleRepository;
+    final DeviceService deviceService;
     final ModelMapper modelMapper;
 
     @Transactional
@@ -32,7 +34,9 @@ public class VehicleServisImpl implements VehicleService{
                 .vehicleModel(vehicleDto.getVehicleModel())
                 .nodes(vehicleDto.getNodes())
                 .registrationNumber(vehicleDto.getRegistrationNumber())
-//                .device(vehicleDto.getDevice())       //todo setDevice
+                .device(modelMapper.map(
+                        deviceService.findDeviceById(vehicleDto.getDeviceId()), Device.class
+                ))
                 .build();
 
         return modelMapper.map(vehicleRepository.save(vehicle), VehicleDto.class);
@@ -65,9 +69,10 @@ public class VehicleServisImpl implements VehicleService{
             vehicle.setNodes(vehicleDto.getNodes());
         }
 
-        if (vehicleDto.getDevice() != null) {
-            //todo setDevice
-//            vehicle.setVehicleConfig(getVehicleConfigIfExistOrCreateNew(vehicleDto.getVehicleConfig()));
+        if (vehicleDto.getDeviceId() != 0) {
+            vehicle.setDevice(modelMapper.map(
+                    deviceService.findDeviceById(vehicleDto.getDeviceId()), Device.class
+            ));
         }
 
         vehicleRepository.save(vehicle);

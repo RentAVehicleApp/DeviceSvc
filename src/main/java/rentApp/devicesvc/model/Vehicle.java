@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.Locale;
 
 @Entity
@@ -14,7 +15,7 @@ import java.util.Locale;
 @Setter
 @ToString
 @Builder
-public class Vehicle {
+public class Vehicle implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 

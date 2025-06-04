@@ -2,6 +2,9 @@ package rentApp.devicesvc.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import rentApp.devicesvc.config.SerialNumberConstrain;
+
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -12,13 +15,15 @@ import lombok.*;
 @ToString
 @Builder
 
+//@Table(uniqueConstraints = { @SerialNumberConstrain(columnNames = { "serialNumber" }) })
 //todo: annotation Index - google it for field serialNumber
-public class Device {
+public class Device implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     //todo во всех остальных энтити
     @Column(unique = true)
+
     private String serialNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
