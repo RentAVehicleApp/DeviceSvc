@@ -11,6 +11,7 @@
     <groupId>com.rent</groupId>
     <artifactId>DeviceSvc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>DeviceSvc</name>
     <description>App for rent vehicles</description>
     <url/>

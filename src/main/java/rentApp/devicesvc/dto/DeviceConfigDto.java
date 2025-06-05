@@ -8,5 +8,5 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DeviceConfigDto {
-    String nameOfConfig;
+    String name;
 }

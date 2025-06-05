@@ -6,5 +6,5 @@ import rentApp.devicesvc.model.DeviceConfig;
 import java.util.Optional;
 
 public interface DeviceConfigRepository extends JpaRepository<DeviceConfig,Long> {
-    Optional<DeviceConfig> findByNameOfConfig(String nameOfConfig);
+//    Optional<DeviceConfig> findByNameOfConfig(String nameOfConfig);
 }
