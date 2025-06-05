@@ -32,10 +32,10 @@ public class DeviceConfigController {
         return deviceConfigService.getListDevicesConfig();
     }
 
-    @GetMapping("/name/{name}")
-    public DeviceConfigDto findDeviceConfigByName (@PathVariable String name) {
-        return deviceConfigService.findDeviceConfigByName(name);
-    }
+//    @GetMapping("/name/{name}")
+//    public DeviceConfigDto findDeviceConfigByName (@PathVariable String name) {
+//        return deviceConfigService.findDeviceConfigByName(name);
+//    }
 
     @PutMapping("/id/{id}")
     public DeviceConfigDto updateDeviceConfig (@PathVariable long id, @RequestBody DeviceConfigDto deviceConfigDto) {
@@ -46,6 +46,9 @@ public class DeviceConfigController {
     public void removeDeviceConfig (@PathVariable long id) {
         deviceConfigService.removeDeviceConfig (id);
     }
+
+    // отдельно модуль сервиса  И будет отдельно девайс модуль.
+    // И девайс модуль будет содержать только дто, которые испольщубтся везде
 
 
 

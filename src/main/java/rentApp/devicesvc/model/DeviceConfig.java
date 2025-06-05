@@ -20,6 +20,5 @@ import java.io.Serializable;
 public class DeviceConfig implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    String nameOfConfig;
+    String name;
 }

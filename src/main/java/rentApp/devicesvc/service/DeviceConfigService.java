@@ -15,7 +15,5 @@ public interface DeviceConfigService {
 
     void removeDeviceConfig(long id);
 
-    DeviceConfigDto findDeviceConfigByName(String name);
-
     List<DeviceConfigDto> getListDevicesConfig();
 }
